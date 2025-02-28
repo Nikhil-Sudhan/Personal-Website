@@ -35,13 +35,20 @@
 
   <!-- Style to scale content -->
   <style>
-    /*body {
-      transform: scale(0.75); /* Scale to 75% */
-     /* transform-origin: 0 0; /* Scale from the top-left corner */
-      /*width: 133.33%; /* Compensate for scaling */
-      /*height: 133.33%; /* Compensate for scaling */
-      /*overflow: hidden; /* Hide any overflow caused by scaling */
-    /*}*/
+    @media only screen and (min-width: 768px) {
+      body {
+        zoom: 75%;
+        -moz-transform: scale(0.75);
+        -moz-transform-origin: 0 0;
+        transform: scale(0.75);
+        transform-origin: 0 0;
+      }
+      #flutter_target {
+        width: 133.33%;
+        height: 133.33%;
+        transform-origin: 0 0;
+      }
+    }
   </style>
 </head>
 <body>
