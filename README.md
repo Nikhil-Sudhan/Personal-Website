@@ -1,4 +1,4 @@
-# flutter_application_1
+# nicky
 
 A new Flutter project.
 
