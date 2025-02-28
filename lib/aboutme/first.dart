@@ -161,12 +161,16 @@ class ExperienceContent extends StatelessWidget {
         "Sonata Software, Chennai",
         "May 6, 2024 - May 31, 2024",
         "Worked extensively on natural language processing (NLP) and optical character recognition (OCR) technologies.",
-        "Startup Initiative",
-        "Red Star Aerial Systems",
-        "2024 - Present",
-        "Founded and currently leading the development of a Minimum Viable Product (MVP).\nOverseeing the growth of a dedicated department focused on innovation and product development.");
+        "",
+        "",
+        "",
+        "");
   }
 }
+
+// "Red Star Aerial Systems",
+//         "2024 - Present",
+//         "Founded and currently leading the development of a Minimum Viable Product (MVP).\nOverseeing the growth of a dedicated department focused on innovation and product development."
 
 // Widget for Skill  section
 // Widget for Skill section
