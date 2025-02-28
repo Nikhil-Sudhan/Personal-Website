@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:nicky/aboutme/first.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:website/aboutme/first.dart';
 
 import 'aboutme/getintouch.dart'; // For launching URLs
 

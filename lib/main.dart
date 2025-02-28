@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:website/bottombutton.dart';
-import 'package:website/topbutton.dart';
-import 'package:website/wallpapaer.dart';
-import 'package:website/home.dart';
+import 'package:nicky/bottombutton.dart';
+import 'package:nicky/home.dart';
+import 'package:nicky/topbutton.dart';
+import 'package:nicky/wallpapaer.dart';
+
 
 // Custom ScrollPhysics to disable upward scrolling once moved to the second page
 class NoBackScrollPhysics extends ScrollPhysics {

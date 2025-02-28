@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:nicky/bottombutton.dart';
+import 'package:nicky/home.dart';
+import 'package:nicky/topbutton.dart';
+import 'package:nicky/wallpapaer.dart';
 import 'dart:async';
 
-import 'package:website/bottombutton.dart';
-import 'package:website/home.dart';
-import 'package:website/topbutton.dart';
-import 'package:website/wallpapaer.dart';
 
 void main() => runApp(const Lock());
 
