@@ -60,10 +60,10 @@ class _LockState extends State<Lock> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: const PreferredSize(
-          preferredSize: Size(double.infinity, 42), // Set height only
+          preferredSize: Size(double.infinity, 42),
           child: Center(
             child: SizedBox(
-              width: 425,
+              width: 375,
               child: Topbutton(),
             ),
           ),
@@ -71,15 +71,15 @@ class _LockState extends State<Lock> {
         body: LayoutBuilder(
           builder: (context, constraints) {
             final availableHeight = MediaQuery.of(context).size.height;
-            final appBarHeight = 42.0;
-            final bottomBarHeight = 60.0;
+            const appBarHeight = 42.0;
+            const bottomBarHeight = 60.0;
 
             return Column(
               children: [
                 Expanded(
                   child: Center(
                     child: SizedBox(
-                      width: 425,
+                      width: 375,
                       height: availableHeight - appBarHeight - bottomBarHeight,
                       child: PageView(
                         controller: _pageController,
@@ -105,9 +105,14 @@ class _LockState extends State<Lock> {
                     ),
                   ),
                 ),
-                Container(
-                  color: Colors.black,
-                  child: const Bottom(),
+                Center(
+                  child: SizedBox(
+                    width: 375,
+                    child: Container(
+                      color: Colors.black,
+                      child: const Bottom(),
+                    ),
+                  ),
                 ),
               ],
             );

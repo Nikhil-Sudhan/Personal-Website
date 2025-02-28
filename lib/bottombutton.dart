@@ -12,7 +12,7 @@ class _BottomState extends State<Bottom> {
   Widget build(BuildContext context) {
     return Container(
       height: 60,
-      width: 425,
+      width: 375,
       decoration: const BoxDecoration(
         color: Color(0xFF000000),
         borderRadius: BorderRadius.only(
