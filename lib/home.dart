@@ -82,9 +82,9 @@ class _TileState extends State<Tile> {
       'color': Colors.lightBlueAccent[400],
       'hoverColor': Colors.lightBlueAccent[700],
       'icon': Icons.message, // Message icon
-      'text': '1', 
+      'text': '1',
       'fontSize': 30.0,
-      'alignment': Alignment.centerRight// Badge text
+      'alignment': Alignment.centerRight // Badge text
     },
     {
       'color': Colors.lightBlueAccent[400],
@@ -96,9 +96,9 @@ class _TileState extends State<Tile> {
     {
       'color': Colors.green[800],
       'hoverColor': Colors.green[900],
-      'image': 'assets/images/github.png', 
+      'image': 'assets/images/github.png',
       'url': 'https://github.com/Nikhil-Sudhan',
-      //'text': 'GitHub', 
+      //'text': 'GitHub',
       'fontSize': 20.0,
       'alignment': Alignment.bottomLeft,
       'imageSize': 100.0, // Custom image size
@@ -113,7 +113,7 @@ class _TileState extends State<Tile> {
     {
       'color': Colors.lightBlueAccent[400],
       'hoverColor': Colors.lightBlueAccent[700],
-      'image': 'assets/images/insta.png', 
+      'image': 'assets/images/insta.png',
       'url': 'https://www.instagram.com',
       'fontSize': 16.0,
       'alignment': Alignment.bottomLeft,
@@ -141,15 +141,14 @@ class _TileState extends State<Tile> {
     {
       'color': Colors.lightBlueAccent[400],
       'hoverColor': Colors.lightBlueAccent[700],
-      'text': 'Red Star Aerial Systems',
+      'text': 'Aerial Systems',
       'image': 'assets/images/drone.png',
-      'url': 'https://nikhilsudhan.wixsite.com/redstaraerialsys',
+      'url': 'https://redstar-seven.vercel.app/',
       'fontSize': 26.0,
       'alignment': Alignment.bottomLeft,
-      'imageSize':  180,
+      'imageSize': 180,
       'imageColor': Colors.black, // Custom image size
       'imageAlignment': Alignment.topRight,
-      
     },
     {
       'color': Colors.redAccent[700],
@@ -184,7 +183,7 @@ class _TileState extends State<Tile> {
       'image': 'assets/images/flappy.jpg',
       'fontSize': 16.0,
       'alignment': Alignment.bottomLeft,
-      'imageSize': 455.0, 
+      'imageSize': 455.0,
       'imageAlignment': Alignment.center,
     },
     {
@@ -194,9 +193,10 @@ class _TileState extends State<Tile> {
       'image': 'assets/images/link.png',
       'fontSize': 16.0,
       'url': 'https://www.linkedin.com/in/nikhilsudhan',
-      'alignment': Alignment.centerLeft,
-      'imageSize': 55.0, 
-      'imageAlignment': Alignment.center,
+      'alignment': Alignment.centerRight,
+      'imageSize': 55.0,
+      'imageAlignment': const Alignment(-0.7, 0), // Move icon slightly to the left
+      'padding': const EdgeInsets.only(right: 20), // Add padding
     },
     {
       'color': Colors.green[800],
@@ -205,11 +205,10 @@ class _TileState extends State<Tile> {
       'fontSize': 18.0,
       'alignment': Alignment.bottomLeft,
     },
-    
     {
       'color': Colors.lightBlueAccent[400],
       'hoverColor': Colors.lightBlueAccent[700],
-      
+
       'image': 'assets/images/dp.jpg',
       'fontSize': 16.0,
       'alignment': Alignment.bottomLeft,
@@ -219,7 +218,7 @@ class _TileState extends State<Tile> {
     {
       'color': Colors.lightBlueAccent[400],
       'hoverColor': Colors.lightBlueAccent[700],
-      
+
       'image': 'assets/images/whatsapp.png',
       'fontSize': 16.0,
       'alignment': Alignment.bottomLeft,
@@ -235,7 +234,7 @@ class _TileState extends State<Tile> {
     },
   ];
 
- @override
+  @override
   Widget build(BuildContext context) {
     final tileData = tiles[widget.index % tiles.length];
 
@@ -243,26 +242,30 @@ class _TileState extends State<Tile> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: GestureDetector(
-        onTap: () {  
-        if (tileData['url'] != null) {
-          _launchURL(tileData['url']);
-        } else if (tileData['text'] == 'About Me') {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const About()),
-          );
-        } else if (tileData['text'] == 'Resume') {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const About()), // Assuming Resume is a separate page
-          );
-        } else if (tileData['text'] == 'Get In Touch!') {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const Getin()), // Navigate to Getin page
-          );
-        }
-      },
+        onTap: () {
+          if (tileData['url'] != null) {
+            _launchURL(tileData['url']);
+          } else if (tileData['text'] == 'About Me') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const About()),
+            );
+          } else if (tileData['text'] == 'Resume') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      const About()), // Assuming Resume is a separate page
+            );
+          } else if (tileData['text'] == 'Get In Touch!') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      const Getin()), // Navigate to Getin page
+            );
+          }
+        },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           decoration: BoxDecoration(
@@ -272,12 +275,15 @@ class _TileState extends State<Tile> {
           child: Stack(
             children: [
               if (tileData.containsKey('image'))
-                Align(
-                  alignment: tileData['imageAlignment'] ?? Alignment.center, // Custom image alignment
-                  child: Image.asset(
-                    tileData['image'],
-                    width: tileData['imageSize'] ?? 50.0, // Custom image size
-                    fit: BoxFit.contain,
+                Padding(
+                  padding: tileData['padding'] ?? EdgeInsets.zero,
+                  child: Align(
+                    alignment: tileData['imageAlignment'] ?? Alignment.center,
+                    child: Image.asset(
+                      tileData['image'],
+                      width: tileData['imageSize'] ?? 50.0,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               if (tileData.containsKey('icon'))
@@ -295,10 +301,7 @@ class _TileState extends State<Tile> {
                     padding: const EdgeInsets.all(8.0), // Add some padding
                     child: Text(
                       tileData['text'],
-                      style: 
-                      
-     
-                      TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Segoe',
                         fontWeight: FontWeight.w400,
                         color: Colors.white,
