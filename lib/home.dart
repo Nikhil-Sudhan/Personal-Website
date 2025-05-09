@@ -195,7 +195,8 @@ class _TileState extends State<Tile> {
       'url': 'https://www.linkedin.com/in/nikhilsudhan',
       'alignment': Alignment.centerRight,
       'imageSize': 55.0,
-      'imageAlignment': const Alignment(-0.7, 0), // Move icon slightly to the left
+      'imageAlignment':
+          const Alignment(-0.7, 0), // Move icon slightly to the left
       'padding': const EdgeInsets.only(right: 20), // Add padding
     },
     {
@@ -251,12 +252,8 @@ class _TileState extends State<Tile> {
               MaterialPageRoute(builder: (context) => const About()),
             );
           } else if (tileData['text'] == 'Resume') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      const About()), // Assuming Resume is a separate page
-            );
+            _launchURL(
+                'https://drive.google.com/file/d/1rkOUnAZSINLCFXmVKBjt4RRn7JU9Ahx7/view?usp=sharing');
           } else if (tileData['text'] == 'Get In Touch!') {
             Navigator.push(
               context,

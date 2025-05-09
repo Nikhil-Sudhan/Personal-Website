@@ -122,6 +122,13 @@ class _AboutState extends State<About> with SingleTickerProviderStateMixin {
             text: _tabs[index].toLowerCase(),
           );
         }),
+        onTap: (index) {
+          _pageController.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+        },
       ),
     );
   }
