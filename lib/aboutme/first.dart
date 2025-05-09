@@ -18,6 +18,17 @@ class _AboutState extends State<About> with SingleTickerProviderStateMixin {
     super.initState();
     _tabController = TabController(length: _tabs.length, vsync: this);
     _pageController = PageController();
+
+    // Sync tab controller with page controller
+    _tabController.addListener(() {
+      if (!_tabController.indexIsChanging) {
+        _pageController.animateToPage(
+          _tabController.index,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
   }
 
   @override
@@ -36,8 +47,21 @@ class _AboutState extends State<About> with SingleTickerProviderStateMixin {
           child: Container(
             width: 425,
             height: MediaQuery.of(context).size.height,
-            decoration: const BoxDecoration(
-              color: Color(0xFF0A0A0A),
+            decoration: BoxDecoration(
+              color: const Color(0xFF0A0A0A),
+              borderRadius: BorderRadius.circular(32),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.blue.withOpacity(0.2),
+                  spreadRadius: 5,
+                  blurRadius: 15,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+              border: Border.all(
+                color: const Color(0xFF1E90FF),
+                width: 2,
+              ),
             ),
             child: SafeArea(
               child: Column(
@@ -72,8 +96,11 @@ class _AboutState extends State<About> with SingleTickerProviderStateMixin {
                       child: PageView(
                         controller: _pageController,
                         onPageChanged: (index) {
-                          _tabController.index = index;
+                          if (_tabController.index != index) {
+                            _tabController.animateTo(index);
+                          }
                         },
+                        physics: const ClampingScrollPhysics(),
                         children: [
                           _buildScrollableContent(const AboutMeContent()),
                           _buildScrollableContent(const ExperienceContent()),
