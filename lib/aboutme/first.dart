@@ -47,21 +47,8 @@ class _AboutState extends State<About> with SingleTickerProviderStateMixin {
           child: Container(
             width: 425,
             height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-              color: const Color(0xFF0A0A0A),
-              borderRadius: BorderRadius.circular(32),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.blue.withOpacity(0.2),
-                  spreadRadius: 5,
-                  blurRadius: 15,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-              border: Border.all(
-                color: const Color(0xFF1E90FF),
-                width: 2,
-              ),
+            decoration: const BoxDecoration(
+              color: Color(0xFF0A0A0A),
             ),
             child: SafeArea(
               child: Column(
