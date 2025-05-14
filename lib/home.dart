@@ -44,12 +44,14 @@ class LumiaUI extends StatelessWidget {
                 const QuiltedGridTile(2, 4), //about me
                 const QuiltedGridTile(1, 1), //photo of me
                 const QuiltedGridTile(1, 1), //whatsapp
+                const QuiltedGridTile(1, 1), //fiverr
+                const QuiltedGridTile(1, 1), //medium
                 const QuiltedGridTile(1, 2), //get in touch
               ],
             ),
             childrenDelegate: SliverChildBuilderDelegate(
               (context, index) => Tile(index: index),
-              childCount: 18,
+              childCount: 20,
             ),
           ),
         ),
@@ -224,6 +226,22 @@ class _TileState extends State<Tile> {
       'fontSize': 16.0,
       'alignment': Alignment.bottomLeft,
       'imageSize': 55.0, // Custom image size
+      'imageAlignment': Alignment.center,
+    },
+    {
+      'color': Colors.green[800],
+      'hoverColor': Colors.green[900],
+      'image': 'assets/images/fiverr.png',
+      'url': 'https://www.fiverr.com/s/jjlv079',
+      'imageSize': 55.0,
+      'imageAlignment': Alignment.center,
+    },
+    {
+      'color': Colors.lightBlueAccent[400],
+      'hoverColor': Colors.lightBlueAccent[700],
+      'image': 'assets/images/medium.png',
+      'url': 'https://medium.com/@nikhil.sudhan.jeeva',
+      'imageSize': 55.0,
       'imageAlignment': Alignment.center,
     },
     {
