@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:exif/exif.dart';
 
 class GalleryPage extends StatefulWidget {
   const GalleryPage({super.key});
@@ -14,7 +13,7 @@ class GalleryPage extends StatefulWidget {
 
 class _GalleryPageState extends State<GalleryPage> {
   Map<String, Size> _imageSizes = {};
-  Map<String, DateTime?> _exifDates = {};
+  final Map<String, DateTime?> _exifDates = {};
   bool _isLoading = true;
   Map<String, List<String>> _organizedPhotos = {};
   List<String> _allPhotos = [];
@@ -48,6 +47,7 @@ class _GalleryPageState extends State<GalleryPage> {
       'assets/gallery/IMG-20250822-WA0056.jpg',
       'assets/gallery/IMG-20250822-WA0057.jpg',
       'assets/gallery/IMG-20250822-WA0037.jpg',
+      //'assets/gallery/IMG-20250822-WA005.jpg',
       'assets/gallery/IMG-20250822-WA0064.jpg',
       'assets/gallery/IMG-20250822-WA0059.jpg',
       // 2023
@@ -56,98 +56,11 @@ class _GalleryPageState extends State<GalleryPage> {
       'assets/gallery/WhatsApp Image 2023-06-20 at 10.48.02.jpg',
       'assets/gallery/WhatsApp Image 2023-06-15 at 13.01.53.jpg',
     ];
-
+    
     _allPhotos = photoFiles;
-    await _loadExifDates(photoFiles);
+    //await _loadExifDates(photoFiles);
     _organizedPhotos = _organizePhotosByDate(photoFiles);
     await _loadImageSizes();
-  }
-
-  Future<void> _loadExifDates(List<String> photoFiles) async {
-    final Map<String, DateTime?> dates = {};
-
-    for (String imagePath in photoFiles) {
-      try {
-        final ByteData data = await rootBundle.load(imagePath);
-        final Uint8List bytes = data.buffer.asUint8List();
-        final Map<String, IfdTag> exifData = await readExifFromBytes(bytes);
-
-        DateTime? takenDate;
-
-        // Debug: Print all available EXIF fields
-        if (kDebugMode) {
-          print('$imagePath: Available EXIF fields: ${exifData.keys.toList()}');
-        }
-
-        // Try different EXIF date fields with more variations
-        final dateFields = [
-          'EXIF DateTimeOriginal',
-          'EXIF DateTime',
-          'Image DateTime',
-          'DateTime',
-          'DateTimeOriginal',
-          'DateTimeDigitized',
-          'EXIF DateTimeDigitized'
-        ];
-
-        for (String field in dateFields) {
-          if (exifData.containsKey(field)) {
-            takenDate = _parseExifDate(exifData[field]!.toString());
-            if (takenDate != null) {
-              if (kDebugMode) {
-                print('$imagePath: Found date in field "$field": $takenDate');
-              }
-              break;
-            }
-          }
-        }
-
-        dates[imagePath] = takenDate;
-
-        // Debug output
-        if (kDebugMode) {
-          print('$imagePath: Final EXIF date = $takenDate');
-        }
-      } catch (e) {
-        if (kDebugMode) print('Error reading EXIF for $imagePath: $e');
-        dates[imagePath] = null;
-      }
-    }
-
-    if (mounted) {
-      setState(() {
-        _exifDates = dates;
-      });
-
-      // Debug output
-      if (kDebugMode) {
-        print('Loaded ${dates.length} EXIF dates');
-        print('EXIF dates: $dates');
-      }
-    }
-  }
-
-  DateTime? _parseExifDate(String exifDateString) {
-    try {
-      // EXIF date format: "2025:01:22 16:46:30"
-      final RegExp regex =
-          RegExp(r'(\d{4}):(\d{2}):(\d{2}) (\d{2}):(\d{2}):(\d{2})');
-      final Match? match = regex.firstMatch(exifDateString);
-
-      if (match != null) {
-        final int year = int.parse(match.group(1)!);
-        final int month = int.parse(match.group(2)!);
-        final int day = int.parse(match.group(3)!);
-        final int hour = int.parse(match.group(4)!);
-        final int minute = int.parse(match.group(5)!);
-        final int second = int.parse(match.group(6)!);
-
-        return DateTime(year, month, day, hour, minute, second);
-      }
-    } catch (e) {
-      if (kDebugMode) print('Error parsing EXIF date: $exifDateString - $e');
-    }
-    return null;
   }
 
   Map<String, List<String>> _organizePhotosByDate(List<String> photoPaths) {
@@ -179,6 +92,7 @@ class _GalleryPageState extends State<GalleryPage> {
       'assets/gallery/IMG-20250822-WA0056.jpg': '2024',
       'assets/gallery/IMG-20250822-WA0057.jpg': '2024',
       'assets/gallery/IMG-20250822-WA0037.jpg': '2024',
+      'assets/gallery/IMG-20250822-WA005.jpg': '2024',
       'assets/gallery/IMG-20250822-WA0064.jpg': '2024',
       'assets/gallery/IMG-20250822-WA0059.jpg': '2024',
       'assets/gallery/IMG-20250822-WA0036.jpg': '2023',
@@ -189,7 +103,7 @@ class _GalleryPageState extends State<GalleryPage> {
 
     for (String photoPath in photoPaths) {
       final String category = photoCategories[photoPath] ?? 'Unknown';
-
+      
       if (!organized.containsKey(category)) {
         organized[category] = [];
       }
@@ -303,24 +217,6 @@ class _GalleryPageState extends State<GalleryPage> {
     } catch (e) {
       return null;
     }
-  }
-
-  String _getMonthName(int month) {
-    const List<String> monthNames = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ];
-    return monthNames[month - 1];
   }
 
   int _getMonthNumber(String monthName) {

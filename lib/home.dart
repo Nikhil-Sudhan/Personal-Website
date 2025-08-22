@@ -272,7 +272,7 @@ class _TileState extends State<Tile> {
             );
           } else if (tileData['text'] == 'Resume') {
             _launchURL(
-                'https://drive.google.com/file/d/1rkOUnAZSINLCFXmVKBjt4RRn7JU9Ahx7/view?usp=sharing');
+                'https://drive.google.com/file/d/1efCjdKY99w8V_vvTn4fvZjy_uIx3uH1u/view?usp=sharing');
           } else if (tileData['text'] == 'Get In Touch!') {
             Navigator.push(
               context,
