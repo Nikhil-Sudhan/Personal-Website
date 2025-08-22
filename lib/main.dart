@@ -4,7 +4,6 @@ import 'package:nicky/home.dart';
 import 'package:nicky/topbutton.dart';
 import 'package:nicky/wallpapaer.dart';
 
-
 // Custom ScrollPhysics to disable upward scrolling once moved to the second page
 class NoBackScrollPhysics extends ScrollPhysics {
   const NoBackScrollPhysics({super.parent});
@@ -111,7 +110,31 @@ class _LockState extends State<Lock> {
                     width: 375,
                     child: Container(
                       color: Colors.black,
-                      child: const Bottom(),
+                      child: Bottom(
+                        onBack: () {
+                          // If on home page (index 1), go back to lockscreen (index 0)
+                          // If on lockscreen (index 0), stay on lockscreen
+                          if (_pageController.hasClients) {
+                            if (_pageController.page == 1) {
+                              _pageController.animateToPage(
+                                0,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            }
+                          }
+                        },
+                        onHome: () {
+                          // Always navigate to home page (index 1)
+                          if (_pageController.hasClients) {
+                            _pageController.animateToPage(
+                              1,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                            );
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ),

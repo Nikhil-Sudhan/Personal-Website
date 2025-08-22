@@ -54,7 +54,10 @@
 <body>
   <script type="module">
     import { injectSpeedInsights } from 'https://esm.sh/@vercel/speed-insights@1';
+    import { inject } from 'https://esm.sh/@vercel/analytics@1';
+    
     injectSpeedInsights();
+    inject();
   </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>

@@ -11,7 +11,13 @@ class _AboutState extends State<About> with SingleTickerProviderStateMixin {
   late final TabController _tabController;
   late PageController _pageController;
 
-  final List<String> _tabs = ["about me", "experience", "skills", "interests"];
+  final List<String> _tabs = [
+    "about me",
+    "experience",
+    "skills",
+    "interests",
+    "my watchlist"
+  ];
 
   @override
   void initState() {
@@ -93,6 +99,7 @@ class _AboutState extends State<About> with SingleTickerProviderStateMixin {
                           _buildScrollableContent(const ExperienceContent()),
                           _buildScrollableContent(const SkillsContent()),
                           _buildScrollableContent(const InterestsContent()),
+                          _buildScrollableContent(const WatchlistContent()),
                         ],
                       ),
                     ),
@@ -121,7 +128,7 @@ class _AboutState extends State<About> with SingleTickerProviderStateMixin {
               .black, // This sets the entire indicator (background) to black
         ),
         labelColor: Colors.white,
-        unselectedLabelColor: Colors.white.withOpacity(0.5),
+        unselectedLabelColor: Colors.white.withValues(alpha: 0.5),
         labelStyle: const TextStyle(
           fontFamily: 'Segoe',
           fontWeight: FontWeight.w400,
@@ -255,6 +262,121 @@ class InterestsContent extends StatelessWidget {
       '',
       "I sketch the world around me.\n\nI build and fly drones.\n\nMuhammad Ali inspires me: fighting spirit.\n\nCooking (more Walter White)\n\nCreating AND/OR gates with Arduino boards.",
       '',
+    );
+  }
+}
+
+// Widget for Watchlist section
+class WatchlistContent extends StatelessWidget {
+  const WatchlistContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildWatchlistContent();
+  }
+
+  Widget _buildWatchlistContent() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 32),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 16),
+          _buildWatchlistSection(
+            "the essentials",
+            ["The Social Network", "Silicon Valley", "Jobs (2015)","Limitless"],
+          ),
+          const SizedBox(height: 24),
+          _buildWatchlistSection(
+            "underrated af",
+            ["The Billion Dollar Code", "Blackberry (2023)"],
+          ),
+          const SizedBox(height: 24),
+          _buildWatchlistSection(
+            "one time watch",
+            ["The Playlist", "StartUp"],
+          ),
+          const SizedBox(height: 24),
+          _buildWatchlistSection(
+            "peak",
+            ["Successions", "The Founder","Tetris","The Martian"],
+          ),
+          const SizedBox(height: 24),
+          _buildWatchlistSection(
+            "slightly overrated",
+            ["Wolf of Wall Street", "The Imitation Game","Pirates of the Silicon Valley"],
+          ),
+          const SizedBox(height: 24),
+          _buildWatchlistSection(
+            "mid but not bad",
+            ["Halt and Catch Fire", "Startup.com"],
+          ),
+          const SizedBox(height: 24),
+          _buildWatchlistSection(
+            "very overrated",
+            ["Mr Robot", "The Circle"],
+          ),
+          const SizedBox(height: 24),
+          _buildWatchlistSection(
+            "not tech but you'll love it",
+            ["How to Sell Drugs Online (fast)", "Ford vs Ferrari","Sherlock Holmes","True Detective"],
+          ),
+          const SizedBox(height: 24),
+          _buildWatchlistSection(
+            "comfort zone",
+            ["F**** C***", "Dead Poet Society","The Preaks of Begin a Wallflower"],
+          ),
+          
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWatchlistSection(String title, List<String> items) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontFamily: 'Segoe',
+            fontWeight: FontWeight.w400,
+            color: Colors.white,
+            fontSize: 23,
+          ),
+        ),
+        const SizedBox(height: 16),
+        ...items.map(
+          (item) => Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "• ",
+                  style: TextStyle(
+                    fontFamily: 'Segoe',
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                    fontSize: 19,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    item,
+                    style: const TextStyle(
+                      fontFamily: 'Segoe',
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                      fontSize: 19,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

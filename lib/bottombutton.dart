@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Bottom extends StatefulWidget {
-  const Bottom({super.key});
+  final VoidCallback? onBack;
+  final VoidCallback? onHome;
+  const Bottom({super.key, this.onBack, this.onHome});
 
   @override
   State<Bottom> createState() => _BottomState();
@@ -23,19 +25,25 @@ class _BottomState extends State<Bottom> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image.asset(
-            //back button
-            'assets/images/download_removebg_preview_191.png',
-            width: 43,
-            height: 36,
-            fit: BoxFit.contain,
+          GestureDetector(
+            onTap: widget.onBack,
+            child: Image.asset(
+              //back button
+              'assets/images/download_removebg_preview_191.png',
+              width: 43,
+              height: 36,
+              fit: BoxFit.contain,
+            ),
           ),
-          Image.asset(
-            //home button
-            'assets/images/windows-10.png',
-            width: 43,
-            height: 40,
-            fit: BoxFit.contain,
+          GestureDetector(
+            onTap: widget.onHome,
+            child: Image.asset(
+              //home button
+              'assets/images/windows-10.png',
+              width: 43,
+              height: 40,
+              fit: BoxFit.contain,
+            ),
           ),
           Image.asset(
             //search button

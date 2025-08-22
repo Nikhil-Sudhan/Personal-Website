@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:nicky/aboutme/first.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'gallery.dart';
 
 import 'aboutme/getintouch.dart'; // For launching URLs
 
@@ -110,13 +111,13 @@ class _TileState extends State<Tile> {
       'color': Colors.green[800],
       'hoverColor': Colors.green[900],
       'icon': Icons.headphones, // Headphones icon
-      'url': 'https://www.spotify.com',
+      'url': 'https://open.spotify.com/blend/taste-match/d5509a353578c18f?si=pMzuj201RY2sqs_iVg7iUg&fallback=getapp&blendDecoration=5f9c38d2',
     },
     {
       'color': Colors.lightBlueAccent[400],
       'hoverColor': Colors.lightBlueAccent[700],
       'image': 'assets/images/insta.png',
-      'url': 'https://www.instagram.com',
+      'url': 'https://www.instagram.com/cuddle_coder_/',
       'fontSize': 16.0,
       'alignment': Alignment.bottomLeft,
       'imageSize': 55.0, // Custom image size
@@ -141,16 +142,16 @@ class _TileState extends State<Tile> {
       'imageAlignment': Alignment.center,
     },
     {
-      'color': Colors.lightBlueAccent[400],
-      'hoverColor': Colors.lightBlueAccent[700],
-      'text': 'Aerial Systems',
-      'image': 'assets/images/drone.png',
-      'url': 'https://redstar-seven.vercel.app/',
+      'color': const Color.fromARGB(255, 0, 0, 0),
+      'hoverColor': const Color.fromARGB(255, 0, 0, 0),
+      'text': 'The Loft Lab',
+      'image': 'assets/images/icon-01.png',
+      'url': 'http://theloftlab.in/',
       'fontSize': 26.0,
       'alignment': Alignment.bottomLeft,
-      'imageSize': 180,
+      'imageSize': 420,
       'imageColor': Colors.black, // Custom image size
-      'imageAlignment': Alignment.topRight,
+      'imageAlignment': Alignment.center ,
     },
     {
       'color': Colors.redAccent[700],
@@ -279,6 +280,11 @@ class _TileState extends State<Tile> {
                   builder: (context) =>
                       const Getin()), // Navigate to Getin page
             );
+          } else if (tileData['image'] == 'assets/images/gallery.png') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const GalleryPage()),
+            );
           }
         },
         child: AnimatedContainer(
@@ -333,8 +339,8 @@ class _TileState extends State<Tile> {
   }
 
   void _launchURL(String? url) async {
-    if (url != null && await canLaunch(url)) {
-      await launch(url);
+    if (url != null && await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
     } else {
       throw 'Could not launch $url';
     }
