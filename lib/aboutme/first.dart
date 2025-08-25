@@ -324,7 +324,7 @@ class WatchlistContent extends StatelessWidget {
           const SizedBox(height: 24),
           _buildWatchlistSection(
             "comfort zone",
-            ["F**** C***", "Dead Poet Society","The Preaks of Begin a Wallflower"],
+            ["F**** C***", "Dead Poet Society","The Perks of Being a Wallflower"],
           ),
           
         ],
