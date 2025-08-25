@@ -56,7 +56,7 @@ class _GalleryPageState extends State<GalleryPage> {
       'assets/gallery/WhatsApp Image 2023-06-20 at 10.48.02.jpg',
       'assets/gallery/WhatsApp Image 2023-06-15 at 13.01.53.jpg',
     ];
-    
+
     _allPhotos = photoFiles;
     //await _loadExifDates(photoFiles);
     _organizedPhotos = _organizePhotosByDate(photoFiles);
@@ -103,7 +103,7 @@ class _GalleryPageState extends State<GalleryPage> {
 
     for (String photoPath in photoPaths) {
       final String category = photoCategories[photoPath] ?? 'Unknown';
-      
+
       if (!organized.containsKey(category)) {
         organized[category] = [];
       }
