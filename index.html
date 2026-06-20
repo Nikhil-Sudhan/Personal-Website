@@ -2,734 +2,452 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description" content="Build. Innovate. Dominate.">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="nikhil">
-  <title>nikhil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nikhil Sudhan J — Consulting Engineer & Investigator of Machines. A dossier of works.">
+  <title>N. S. Jeeva, Esq. — Consulting Engineer</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg:     #030904;
-      --bg2:    #050F06;
-      --text:   #AEFFA4;
-      --text2:  rgba(174,255,164,.62);
-      --accent: #3DFFC0;
-      --border: #0C1E0D;
-      --surface:#04100A;
-      --fd: 'Barlow', sans-serif;
-      --fm: 'JetBrains Mono', monospace;
+      --paper:   #e8ddc4;
+      --paper2:  #ddd0b2;
+      --ink:     #2a2018;
+      --ink2:    #4a3c2c;
+      --faded:   #7a6a52;
+      --rule:    #6b5a40;
+      --accent:  #6e1a12;   /* oxblood seal red */
+      --tw:      'Special Elite', 'Courier New', monospace;
+      --display: 'IM Fell English', Georgia, serif;
+      --displaysc: 'IM Fell English SC', Georgia, serif;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--fd);
-      line-height: 1.6;
-      overflow-x: hidden;
-      cursor: none;
-      text-transform: lowercase;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--tw);
+      font-size: 16px;
+      line-height: 1.8;
+      /* aged paper texture */
+      background-image:
+        radial-gradient(circle at 20% 15%, rgba(120,90,50,.10) 0%, transparent 32%),
+        radial-gradient(circle at 80% 80%, rgba(120,90,50,.12) 0%, transparent 36%),
+        radial-gradient(circle at 50% 50%, rgba(60,40,20,.04) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+      background-blend-mode: multiply;
     }
 
-    /* ── NOISE ─────────────────────────── */
-    .noise {
-      position: fixed; inset: 0;
-      z-index: 9990; pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-      opacity: 0.04;
+    /* vignette so edges look aged */
+    .vignette {
+      position: fixed; inset: 0; pointer-events: none; z-index: 9000;
+      box-shadow: inset 0 0 180px 30px rgba(50,34,16,.35);
     }
 
-    /* ── CURSOR ────────────────────────── */
-    .cd {
-      position: fixed; top: 0; left: 0;
-      width: 5px; height: 5px;
-      margin: -2.5px 0 0 -2.5px;
-      background: var(--accent); border-radius: 50%;
-      pointer-events: none; z-index: 10001;
-      will-change: transform;
-      transition: width .15s, height .15s, margin .15s;
-    }
-    .cr {
-      position: fixed; top: 0; left: 0;
-      width: 34px; height: 34px;
-      margin: -17px 0 0 -17px;
-      border: 1px solid rgba(61,255,192,.35); border-radius: 50%;
-      pointer-events: none; z-index: 10000;
-      will-change: transform;
-      transition: width .3s, height .3s, margin .3s, border-color .3s;
-    }
-    .cd.on { width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; }
-    .cr.on { width: 52px; height: 52px; margin: -26px 0 0 -26px; border-color: rgba(61,255,192,.65); }
+    ::selection { background: rgba(110,26,18,.25); }
 
-    /* ── NAV ───────────────────────────── */
-    nav {
-      position: fixed; inset: 0 0 auto;
-      z-index: 1000;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 26px 52px;
-      background: linear-gradient(to bottom, rgba(3,9,4,.96) 0%, transparent 100%);
-    }
-    .nav-logo {
-      font-family: var(--fd); font-weight: 800; font-size: 17px;
-      letter-spacing: -.02em; color: var(--text); text-decoration: none;
-    }
-    .nav-r { display: flex; align-items: center; gap: 44px; }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a {
-      font-family: var(--fm); font-size: 11px; letter-spacing: .1em;
-      text-transform: lowercase; color: var(--text2); text-decoration: none;
-      transition: color .2s;
-    }
-    .nav-links a:hover { color: var(--text); }
-    .nav-ping {
-      display: flex; align-items: center; gap: 7px;
-      font-family: var(--fm); font-size: 11px; color: var(--text2); letter-spacing: .04em;
-    }
-    .pdot {
-      width: 6px; height: 6px; background: var(--accent); border-radius: 50%;
-      animation: pdot 2.5s ease-in-out infinite;
-    }
-    @keyframes pdot {
-      0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(61,255,192,.5); }
-      50%      { opacity: .5; box-shadow: 0 0 0 5px rgba(61,255,192,0); }
-    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    /* ── HERO ──────────────────────────── */
-    #hero {
-      position: relative; min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 0 52px 60px; overflow: hidden;
+    /* ─── PAGE FRAME ───────────────────────── */
+    .sheet {
+      max-width: 880px;
+      margin: 36px auto;
+      padding: 0;
+      position: relative;
+      background: var(--paper2);
+      background-blend-mode: multiply;
+      border: 1px solid var(--rule);
+      box-shadow:
+        0 2px 0 var(--rule),
+        0 0 0 6px var(--paper2),
+        0 0 0 7px var(--rule),
+        0 26px 60px rgba(40,26,12,.45);
     }
-    .hero-glow {
-      position: absolute; top: 5%; left: -8%;
-      width: 60vw; height: 60vw;
-      background: radial-gradient(circle, rgba(61,255,192,.038) 0%, transparent 68%);
-      pointer-events: none;
-      animation: glow 14s ease-in-out infinite alternate;
+    .inner { padding: 54px 64px 64px; }
+
+    /* ─── MASTHEAD ─────────────────────────── */
+    header.masthead {
+      text-align: center;
+      padding-bottom: 22px;
+      border-bottom: 3px double var(--rule);
     }
-    @keyframes glow {
-      from { transform: translate(0,0) scale(1); }
-      to   { transform: translate(6%,10%) scale(1.1); }
+    .est {
+      font-family: var(--displaysc);
+      letter-spacing: .32em;
+      font-size: 12px;
+      color: var(--faded);
+      text-transform: uppercase;
+    }
+    .masthead h1 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(2.6rem, 7vw, 4.6rem);
+      line-height: 1.02;
+      letter-spacing: .02em;
+      margin: 10px 0 4px;
+    }
+    .masthead .titleline {
+      font-family: var(--displaysc);
+      font-size: clamp(.85rem, 2vw, 1.05rem);
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      margin-top: 6px;
+    }
+    .rule-orn {
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; margin: 18px 0 4px; color: var(--faded);
+      font-size: 14px; letter-spacing: .2em;
+    }
+    .rule-orn::before, .rule-orn::after {
+      content: ''; height: 1px; width: 90px; background: var(--rule);
     }
 
-    /* ── HERO PHOTO ───────────────────── */
-    .hero-photo {
-      position: absolute; right: 0; top: 0; bottom: 0;
-      width: 42%; overflow: hidden; pointer-events: none;
+    /* dateline / contact bar under masthead */
+    .dateline {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 22px;
+      font-size: 12px; letter-spacing: .08em; color: var(--ink2);
+      padding: 14px 0 0; text-transform: uppercase;
     }
-    .hero-photo img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: 50% 15%;
-      display: block;
-      filter: grayscale(100%) contrast(1.08) brightness(0.6);
-    }
-    .hero-photo::after {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        linear-gradient(to right, var(--bg) 0%, rgba(3,9,4,.7) 18%, transparent 48%),
-        linear-gradient(to bottom, var(--bg) 0%, transparent 14%, transparent 72%, var(--bg) 100%);
-    }
-    @media (max-width: 900px) { .hero-photo { display: none; } }
+    .dateline span { white-space: nowrap; }
 
-    .hero-eyebrow {
-      position: absolute; top: 92px; left: 52px;
-      display: flex; align-items: center; gap: 9px;
-      font-family: var(--fm); font-size: 12px;
-      color: var(--text2); letter-spacing: .05em;
-      opacity: 0;
-      animation: up .8s ease 1.2s forwards;
+    /* ─── SECTION ──────────────────────────── */
+    section { padding: 40px 0; border-bottom: 1px solid rgba(107,90,64,.4); }
+    section:last-of-type { border-bottom: none; }
+
+    .sec-title {
+      font-family: var(--displaysc);
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 400;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-align: center;
+      position: relative;
+      margin-bottom: 6px;
     }
-    @keyframes up {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .sec-sub {
+      text-align: center; font-style: italic; font-family: var(--display);
+      color: var(--faded); font-size: 1rem; margin-bottom: 30px;
     }
 
-    .hero-tagline { display: flex; flex-direction: column; }
-    .hw-wrap { overflow: hidden; }
-    .hw {
-      display: block;
-      font-size: clamp(4.2rem, 12.8vw, 11.5rem);
-      font-weight: 800; letter-spacing: -.04em; line-height: .875;
-      color: var(--text);
-      transform: translateY(110%);
-      transition: transform 1s cubic-bezier(.16,1,.3,1);
+    /* drop-cap intro */
+    .intro {
+      font-family: var(--display);
+      font-size: 1.22rem;
+      line-height: 1.85;
+      text-align: justify;
+      hyphens: auto;
     }
-    .hw.in { transform: translateY(0); }
-
-    .hero-foot {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      margin-top: 36px; padding-top: 20px;
-      border-top: 1px solid var(--border);
-      opacity: 0;
-      animation: up .8s ease 1s forwards;
-    }
-    .hero-name {
-      font-size: clamp(.9rem, 1.5vw, 1.3rem);
-      font-weight: 700; letter-spacing: -.01em; margin-bottom: 4px;
-    }
-    .hero-sub {
-      font-family: var(--fm); font-size: 12px;
-      color: var(--text2); letter-spacing: .04em;
-    }
-    .hero-links { display: flex; gap: 24px; align-items: center; }
-    .hlink {
-      font-family: var(--fm); font-size: 12px; letter-spacing: .08em;
-      text-transform: lowercase; color: var(--text2);
-      text-decoration: none; transition: color .2s;
-    }
-    .hlink:hover { color: var(--accent); }
-
-    .scroll-ind {
-      position: absolute; right: 52px; bottom: 60px;
-      display: flex; flex-direction: column; align-items: center; gap: 12px;
-      font-family: var(--fm); font-size: 10px; letter-spacing: .15em;
-      text-transform: lowercase; color: var(--text2);
-      writing-mode: vertical-rl;
-      opacity: 0;
-      animation: up 1s ease 1.8s forwards;
-    }
-    .sbar { width: 1px; height: 52px; overflow: hidden; background: rgba(61,255,192,.1); }
-    .sbar-i {
-      width: 100%; height: 100%;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-      animation: sd 2s ease-in-out infinite;
-      transform: translateY(-100%);
-    }
-    @keyframes sd { 0% { transform: translateY(-100%); } 100% { transform: translateY(200%); } }
-
-    /* ── TICKER ────────────────────────── */
-    .ticker {
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      padding: 13px 0; overflow: hidden; white-space: nowrap;
-    }
-    .ticker-t { display: inline-flex; animation: tick 28s linear infinite; }
-    .ti {
-      font-family: var(--fm); font-size: 11px;
-      color: var(--text2); letter-spacing: .15em; text-transform: lowercase;
-      padding: 0 26px;
-    }
-    .tg { color: var(--accent); margin-right: 26px; }
-    @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-    /* ── STATS STRIP ───────────────────── */
-    .stats-strip {
-      display: flex; gap: 0;
-      border-bottom: 1px solid var(--border);
-      max-width: 1120px; margin: 0 auto;
-    }
-    .stat-cell {
-      flex: 1; padding: 40px 52px;
-      border-right: 1px solid var(--border);
-    }
-    .stat-cell:last-child { border-right: none; }
-    .stat-n {
-      font-size: clamp(2.2rem, 4vw, 3.5rem);
-      font-weight: 800; letter-spacing: -.05em; line-height: 1;
-      margin-bottom: 8px;
-    }
-    .stat-l {
-      font-family: var(--fm); font-size: 11px;
-      color: var(--text2); letter-spacing: .1em; text-transform: lowercase;
+    .intro::first-letter {
+      font-family: var(--display);
+      float: left;
+      font-size: 4.6rem;
+      line-height: .74;
+      padding: 8px 12px 0 0;
+      color: var(--accent);
     }
 
-    /* ── LAYOUT ────────────────────────── */
-    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 52px; }
-    .sec { padding: 88px 0; }
-    .sec + .sec { border-top: 1px solid var(--border); }
-    .sec-head {
-      display: flex; align-items: center; gap: 14px; margin-bottom: 52px;
+    /* ─── ENTRIES (experience / projects) ──── */
+    .entry { padding: 22px 0; border-bottom: 1px dotted rgba(107,90,64,.55); }
+    .entry:last-child { border-bottom: none; }
+    .entry-head {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 16px; flex-wrap: wrap;
     }
-    .sec-n { font-family: var(--fm); font-size: 11px; color: var(--accent); letter-spacing: .12em; }
-    .sec-t { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: lowercase; color: var(--text2); }
+    .entry-title {
+      font-family: var(--display);
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+    .entry-meta {
+      font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--faded); white-space: nowrap;
+    }
+    .entry-role {
+      font-style: italic; font-family: var(--display);
+      color: var(--ink2); font-size: 1.05rem; margin: 2px 0 10px;
+    }
+    .entry ul { list-style: none; padding-left: 0; }
+    .entry li {
+      position: relative; padding-left: 28px; margin-bottom: 8px;
+      text-align: justify; hyphens: auto;
+    }
+    .entry li::before {
+      content: '§'; position: absolute; left: 4px; top: 0;
+      color: var(--accent); font-family: var(--display); font-size: 1.1rem;
+    }
 
-    /* ── REVEAL ────────────────────────── */
-    .rev {
-      opacity: 0; transform: translateY(20px);
-      transition: opacity .7s ease, transform .7s ease;
+    .tags {
+      margin-top: 12px; font-size: 12px; letter-spacing: .06em;
+      color: var(--faded); font-style: italic; font-family: var(--display);
     }
+
+    /* ─── SKILLS (ledger) ──────────────────── */
+    .ledger { width: 100%; border-collapse: collapse; }
+    .ledger tr { border-bottom: 1px solid rgba(107,90,64,.4); }
+    .ledger tr:last-child { border-bottom: none; }
+    .ledger th {
+      text-align: left; vertical-align: top; padding: 14px 18px 14px 0;
+      width: 30%;
+      font-family: var(--displaysc); font-weight: 400;
+      letter-spacing: .12em; text-transform: uppercase; font-size: .95rem;
+      color: var(--accent); white-space: nowrap;
+    }
+    .ledger td { padding: 14px 0; vertical-align: top; }
+
+    /* ─── CERTS ────────────────────────────── */
+    .certs { list-style: none; text-align: center; }
+    .certs li {
+      font-family: var(--display); font-size: 1.1rem; margin: 8px 0;
+    }
+    .certs li span { color: var(--faded); font-style: italic; }
+
+    /* ─── CALLING CARD / CONNECT ───────────── */
+    .card {
+      text-align: center; border: 2px solid var(--rule);
+      padding: 38px 30px; margin-top: 6px;
+      box-shadow: inset 0 0 0 4px var(--paper2), inset 0 0 0 5px var(--rule);
+      background: rgba(255,250,235,.18);
+    }
+    .card .seal {
+      font-family: var(--display); font-style: italic;
+      font-size: 1.3rem; margin-bottom: 18px;
+    }
+    .card .email {
+      font-family: var(--display); font-size: clamp(1.1rem, 3vw, 1.7rem);
+      display: inline-block; margin-bottom: 8px;
+    }
+    .card .phone { letter-spacing: .14em; color: var(--ink2); margin-bottom: 22px; }
+    .card .links {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 26px;
+      font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+    }
+
+    .stamp {
+      display: inline-block; margin-top: 28px;
+      transform: rotate(-7deg);
+      border: 3px double var(--accent); color: var(--accent);
+      padding: 8px 20px; border-radius: 6px;
+      font-family: var(--displaysc); letter-spacing: .18em;
+      text-transform: uppercase; font-size: .9rem; opacity: .85;
+    }
+
+    /* ─── FOOTER ───────────────────────────── */
+    footer {
+      text-align: center; padding: 28px 0 0;
+      font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--faded);
+    }
+    .colophon { font-family: var(--display); font-style: italic; text-transform: none; letter-spacing: normal; margin-top: 6px; font-size: 14px; }
+
+    /* ─── REVEAL ───────────────────────────── */
+    .rev { opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .8s ease; }
     .rev.in { opacity: 1; transform: translateY(0); }
 
-    /* ── EXPERIENCE ────────────────────── */
-    .exp-item {
-      display: grid; grid-template-columns: 108px 1fr;
-      gap: 44px; padding: 40px 0; border-bottom: 1px solid var(--border);
-    }
-    .exp-item:first-child { padding-top: 0; }
-    .exp-date {
-      font-family: var(--fm); font-size: 11px;
-      color: var(--text2); letter-spacing: .05em; line-height: 1.8; padding-top: 6px;
-    }
-    .exp-co { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 700; letter-spacing: -.02em; }
-    .exp-top { display: flex; align-items: baseline; gap: 14px; margin-bottom: 5px; flex-wrap: wrap; }
-    .exp-badge {
-      font-family: var(--fm); font-size: 10px; letter-spacing: .12em;
-      text-transform: lowercase; color: var(--accent);
-      border: 1px solid rgba(61,255,192,.3); padding: 3px 10px; border-radius: 100px;
-    }
-    .exp-role {
-      font-family: var(--fm); font-size: 12px;
-      color: var(--text2); letter-spacing: .04em; margin-bottom: 12px;
-    }
-    .exp-desc { font-size: 15px; color: var(--text2); line-height: 1.6; }
-
-    /* ── PROJECTS ──────────────────────── */
-    .proj-item {
-      display: grid; grid-template-columns: 44px 1fr 20px;
-      gap: 28px; padding: 36px 0; border-bottom: 1px solid var(--border);
-      align-items: start;
-      transition: padding-left .4s cubic-bezier(.16,1,.3,1);
-    }
-    .proj-item:first-child { padding-top: 0; }
-    .proj-item:hover { padding-left: 14px; }
-    .pn { font-family: var(--fm); font-size: 11px; color: var(--text2); letter-spacing: .06em; padding-top: 5px; }
-    .p-name {
-      font-size: clamp(1.05rem, 2.2vw, 1.5rem);
-      font-weight: 700; letter-spacing: -.02em; margin-bottom: 8px;
-      transition: color .2s;
-    }
-    .proj-item:hover .p-name { color: var(--accent); }
-    .p-desc { font-size: 14px; color: var(--text2); line-height: 1.6; margin-bottom: 14px; }
-    .p-tags { display: flex; flex-wrap: wrap; gap: 7px; }
-    .ptag {
-      font-family: var(--fm); font-size: 11px; letter-spacing: .04em;
-      padding: 4px 10px; border: 1px solid var(--border);
-      border-radius: 3px; color: var(--text2); background: var(--surface);
-      transition: border-color .25s, color .25s;
-    }
-    .proj-item:hover .ptag { border-color: rgba(61,255,192,.3); color: rgba(61,255,192,.8); }
-    .parr {
-      font-size: 16px; color: var(--border);
-      transition: color .25s, transform .25s; padding-top: 5px;
-    }
-    .proj-item:hover .parr { color: var(--accent); transform: translate(4px,-4px); }
-
-    /* ── SKILLS ────────────────────────── */
-    .sk-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 40px 52px; }
-    .sk-head {
-      font-family: var(--fm); font-size: 11px; color: var(--accent);
-      letter-spacing: .12em; text-transform: lowercase; margin-bottom: 14px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .sk-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .sk-items { display: flex; flex-wrap: wrap; gap: 7px; }
-    .sk {
-      font-size: 13px; font-weight: 500; padding: 7px 14px;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 5px; color: var(--text);
-      transition: border-color .2s, color .2s, background .2s;
-    }
-    .sk:hover { border-color: rgba(61,255,192,.45); color: var(--accent); background: rgba(61,255,192,.04); }
-
-
-    /* ── CAL BUTTON ───────────────────── */
-    .cal-btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-family: var(--fd); font-size: clamp(.9rem,1.6vw,1.2rem);
-      font-weight: 700; letter-spacing: -.01em;
-      color: var(--bg); background: var(--accent);
-      padding: 14px 28px; border-radius: 4px;
-      text-decoration: none; margin-bottom: 44px;
-      transition: opacity .2s, transform .2s;
-    }
-    .cal-btn:hover { opacity: .82; transform: translateY(-2px); }
-    .sl-phone {
-      font-family: var(--fm); font-size: 12px; letter-spacing: .1em;
-      color: var(--text2); display: flex; align-items: center; gap: 6px;
-    }
-
-    /* ── CONNECT ───────────────────────── */
-    .conn-big {
-      font-size: clamp(2.6rem, 7vw, 6rem);
-      font-weight: 800; letter-spacing: -.04em; line-height: .92; margin-bottom: 52px;
-    }
-    .conn-email {
-      display: inline-block;
-      font-size: clamp(1rem, 2.2vw, 1.6rem); font-weight: 600; letter-spacing: -.01em;
-      color: var(--text); text-decoration: none; position: relative; margin-bottom: 48px;
-    }
-    .conn-email::after {
-      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
-      height: 2px; background: var(--accent);
-      transform-origin: left; transition: transform .35s ease;
-    }
-    .conn-email:hover::after { transform: scaleX(0); }
-    .conn-socials { display: flex; gap: 30px; flex-wrap: wrap; }
-    .sl {
-      font-family: var(--fm); font-size: 12px; letter-spacing: .1em;
-      text-transform: lowercase; color: var(--text2); text-decoration: none;
-      display: flex; align-items: center; gap: 6px; transition: color .2s;
-    }
-    .sl::before { content: '↗'; font-size: 10px; }
-    .sl:hover { color: var(--text); }
-
-    /* ── FOOTER ────────────────────────── */
-    footer {
-      border-top: 1px solid var(--border); padding: 40px 52px;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .ft { font-family: var(--fm); font-size: 12px; color: var(--text2); letter-spacing: .06em; }
-
-    /* ── TWEAKS ────────────────────────── */
-    #tp {
-      position: fixed; bottom: 24px; right: 24px; z-index: 100001;
-      background: #060e07; border: 1px solid #162016; border-radius: 14px;
-      padding: 22px; width: 248px; display: none; font-family: var(--fm);
-      box-shadow: 0 20px 60px rgba(0,0,0,.7);
-    }
-    .tp-hd { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
-    .tp-title { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: .04em; }
-    .tp-x { background: none; border: none; cursor: none; color: var(--text2); font-size: 22px; line-height: 1; padding: 0; transition: color .2s; }
-    .tp-x:hover { color: var(--text); }
-    .tg { margin-bottom: 20px; }
-    .tg-l { font-size: 10px; color: var(--text2); letter-spacing: .1em; text-transform: lowercase; margin-bottom: 10px; }
-    .swatches { display: flex; gap: 8px; }
-    .sw { width: 26px; height: 26px; border-radius: 50%; border: 2px solid transparent; cursor: none; transition: border-color .2s, transform .2s; }
-    .sw.on { border-color: var(--text); transform: scale(1.12); }
-    .sw:hover { transform: scale(1.1); }
-    .opts { display: flex; gap: 6px; flex-wrap: wrap; }
-    .topt { font-family: var(--fm); font-size: 11px; padding: 6px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 5px; color: var(--text2); cursor: none; transition: border-color .2s, color .2s; }
-    .topt.on { border-color: var(--accent); color: var(--accent); }
-    .topt:hover { color: var(--text); }
-
-    /* ── MOBILE ────────────────────────── */
-    @media (max-width: 768px) {
-      nav { padding: 20px 24px; }
-      .nav-links, .nav-ping { display: none; }
-      #hero { padding: 0 24px 48px; }
-      .hero-eyebrow { left: 24px; top: 80px; }
-      .scroll-ind { display: none; }
-      .wrap { padding: 0 24px; }
-      .sec { padding: 64px 0; }
-      .stats-strip { flex-wrap: wrap; }
-      .stat-cell { padding: 28px 24px; flex: 0 0 50%; }
-      .exp-item { grid-template-columns: 1fr; gap: 8px; }
-      .exp-date { padding-top: 0; }
-      .proj-item { grid-template-columns: 1fr 20px; }
-      .pn { display: none; }
-      .sk-grid { grid-template-columns: repeat(2,1fr); gap: 28px; }
-      footer { padding: 32px 24px; flex-direction: column; gap: 10px; text-align: center; }
-    }
-    @media (max-width: 480px) {
-      .sk-grid { grid-template-columns: 1fr; }
-      .stat-cell { flex: 0 0 50%; }
+    /* ─── MOBILE ───────────────────────────── */
+    @media (max-width: 700px) {
+      body { font-size: 15px; }
+      .sheet { margin: 12px; }
+      .inner { padding: 36px 26px 44px; }
+      .ledger th { display: block; width: auto; padding-bottom: 2px; }
+      .ledger td { display: block; padding-top: 2px; padding-bottom: 14px; }
+      .ledger tr { display: block; }
+      .entry-head { gap: 4px; }
+      .intro::first-letter { font-size: 3.6rem; }
     }
   </style>
 </head>
 <body>
+<div class="vignette"></div>
 
-<div class="noise"></div>
-<div class="cd" id="cd"></div>
-<div class="cr" id="cr"></div>
+<div class="sheet">
+  <div class="inner">
 
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="#hero" id="logo">nikhil</a>
-  <div class="nav-r">
-    <ul class="nav-links">
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="https://x.com/Nikhil_Sudhan_J" target="_blank">X</a></li>
-      <li><a href="#connect">Connect</a></li>
-    </ul>
-    <div class="nav-ping">
-      <div class="pdot"></div>
-      <span>Bangalore</span>
-    </div>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-glow"></div>
-
-  <div class="hero-photo">
-    <img src="dp.jpg" alt="Nikhil Sudhan J">
-  </div>
-
-  <div class="hero-tagline">
-    <div class="hw-wrap"><span class="hw" id="hw1">build.</span></div>
-    <div class="hw-wrap"><span class="hw" id="hw2">innovate.</span></div>
-    <div class="hw-wrap"><span class="hw" id="hw3">dominate.</span></div>
-  </div>
-
-  <div class="hero-foot">
-    <div>
-      <div class="hero-name">nikhil sudhan j</div>
-      <div class="hero-sub">engineer &nbsp;·&nbsp; founder &nbsp;·&nbsp; b.tech cse, 2022–2026</div>
-    </div>
-
-  </div>
-
-  <div class="scroll-ind">
-    <div class="sbar"><div class="sbar-i"></div></div>
-    <span>scroll</span>
-  </div>
-</section>
-
-<!-- MAIN -->
-<main class="wrap">
-
-  <!-- EXPERIENCE -->
-  <section id="experience" class="sec">
-    <div class="sec-head rev">
-      <span class="sec-n">01</span>
-      <span class="sec-t">Experience</span>
-    </div>
-
-    <div class="exp-item rev">
-      <div class="exp-date">Jan 2026<br>Now</div>
-      <div>
-        <div class="exp-top">
-          <div class="exp-co">The Loft Lab</div>
-          <span class="exp-badge">Founder</span>
-        </div>
-        <div class="exp-role">Defence-Tech Startup · Koramangala, Bangalore</div>
-        <div class="exp-desc">Autonomous UAV C2 for GPS-denied, high-threat environments.</div>
+    <!-- MASTHEAD -->
+    <header class="masthead">
+      <div class="est">Established Anno MMXXII &nbsp;·&nbsp; Consulting Engineer</div>
+      <h1>Nikhil&nbsp;Sudhan&nbsp;J</h1>
+      <div class="rule-orn">❦</div>
+      <div class="titleline">Engineer · Founder · Investigator of Machines</div>
+      <div class="dateline">
+        <span>Bangalore, India</span>
+        <span>·</span>
+        <span>B.Tech, C.S.E. 1922&ndash;1926*</span>
+        <span>·</span>
+        <span>The Loft Lab</span>
       </div>
-    </div>
+    </header>
 
-    <div class="exp-item rev" style="transition-delay:.1s">
-      <div class="exp-date">May–Jun<br>2024</div>
-      <div>
-        <div class="exp-top">
-          <div class="exp-co">Sonata Software</div>
+    <!-- PREAMBLE -->
+    <section class="rev">
+      <p class="intro">
+        Permit me to introduce myself: a consulting engineer of the modern
+        mechanical sciences, lately occupied with autonomous flying machines,
+        artificial cognition, and the curious art of teaching iron to think.
+        What follows is a faithful dossier of my employments, investigations,
+        and accumulated competencies &mdash; set down in plain type, that you
+        may judge their merit for yourself.
+      </p>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="rev">
+      <h2 class="sec-title">I. &nbsp;Employments</h2>
+      <p class="sec-sub">A record of professional engagements</p>
+
+      <div class="entry">
+        <div class="entry-head">
+          <div class="entry-title">The Loft Lab</div>
+          <div class="entry-meta">Jan 1926 &ndash; Present</div>
         </div>
-        <div class="exp-role">Software Engineer Intern · Chennai</div>
-        <div class="exp-desc">GCP Document AI automation with OAuth2 on a Windows Server VM.</div>
+        <div class="entry-role">Founder &mdash; Defence-Tech Concern, Koramangala, Bangalore</div>
+        <ul>
+          <li>Founded a concern devoted to autonomous unmanned aerial command &amp; control, purpose-built for navigation-denied and high-threat conditions.</li>
+        </ul>
       </div>
-    </div>
 
-    <div class="exp-item rev" style="transition-delay:.2s">
-      <div class="exp-date">May–Jun<br>2023</div>
-      <div>
-        <div class="exp-top">
-          <div class="exp-co">Wipro</div>
+      <div class="entry">
+        <div class="entry-head">
+          <div class="entry-title">Sonata Software</div>
+          <div class="entry-meta">May &ndash; Jun 1924</div>
         </div>
-        <div class="exp-role">Cloud &amp; DevOps Intern · Bangalore</div>
-        <div class="exp-desc">Docker, Kubernetes, GitOps pipelines on GCP.</div>
+        <div class="entry-role">Software Engineer, Apprentice &mdash; Chennai</div>
+        <ul>
+          <li>Constructed a Flask apparatus joined to Google Cloud Document AI for the automated extraction of documents.</li>
+          <li>Instituted OAuth2 authentication and deployed the works upon a Windows Server machine.</li>
+        </ul>
       </div>
-    </div>
-  </section>
 
-  <!-- PROJECTS -->
-  <section id="projects" class="sec">
-    <div class="sec-head rev">
-      <span class="sec-n">02</span>
-      <span class="sec-t">Projects</span>
-    </div>
-
-    <div class="proj-item rev">
-      <div class="pn">01</div>
-      <div>
-        <div class="p-name">Pluto — AI UAV Command System</div>
-        <div class="p-desc">Full-stack C2 with LLM mission translation, MAVLink telemetry, and dynamic re-routing.</div>
-        <div class="p-tags">
-          <span class="ptag">Python</span><span class="ptag">Flask</span>
-          <span class="ptag">MAVLink</span><span class="ptag">React</span>
-          <span class="ptag">REST APIs</span>
+      <div class="entry">
+        <div class="entry-head">
+          <div class="entry-title">Wipro</div>
+          <div class="entry-meta">May &ndash; Jun 1923</div>
         </div>
+        <div class="entry-role">Cloud &amp; DevOps Apprentice &mdash; Bangalore</div>
+        <ul>
+          <li>Containerised and deployed cloud-native applications by means of Docker and Kubernetes upon the Google Cloud Platform.</li>
+          <li>Erected GitOps pipelines for the automated deployment and orderly control of versions.</li>
+        </ul>
       </div>
-      <div class="parr">↗</div>
-    </div>
+    </section>
 
-    <div class="proj-item rev" style="transition-delay:.1s">
-      <div class="pn">02</div>
-      <div>
-        <div class="p-name">Real-Time 3D Object Tracking · Edge AI</div>
-        <div class="p-desc">20+ FPS monocular 3D on Jetson Nano. Sub-1GB VRAM. Zero cloud dependency.</div>
-        <div class="p-tags">
-          <span class="ptag">PyTorch</span><span class="ptag">TensorRT</span>
-          <span class="ptag">CUDA</span><span class="ptag">Jetson Nano</span>
+    <!-- PROJECTS -->
+    <section class="rev">
+      <h2 class="sec-title">II. &nbsp;Investigations</h2>
+      <p class="sec-sub">Notable works &amp; contraptions of my own devising</p>
+
+      <div class="entry">
+        <div class="entry-title">Pluto &mdash; An A.I. Integrated UAV Command System</div>
+        <ul>
+          <li>A full-stack flying-machine platform: a React frontispiece for the authoring of missions, a Flask engine for the translation of plain instruction into command, and a MAVLink stratum for live telemetry and governance of the craft.</li>
+          <li>Engineered a modular command-engine exposing REST interfaces for real-time execution, with dynamic re-routing and orderly handling of error across navigation-denied flight.</li>
+        </ul>
+        <div class="tags">Instruments: Python · Flask · MAVLink · React · REST APIs</div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-title">Real-Time 3-D Object Tracking upon Edge A.I.</div>
+        <ul>
+          <li>Devised a lightweight monocular 3-D perception model by depthwise-separable convolutions; optimised with TensorRT to attain upward of 20 frames per second upon the Jetson Nano, at less than a gigabyte of memory.</li>
+          <li>Benchmarked against full-precision baselines, proving a production-worthy bargain between accuracy and latency, with no dependence whatsoever upon the cloud.</li>
+        </ul>
+        <div class="tags">Instruments: PyTorch · TensorRT · KITTI · Jetson Nano · CUDA</div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-title">An Adaptive Vector Retrieval Engine</div>
+        <ul>
+          <li>Architected a cold-and-hot vector storehouse upon FAISS with embeddings summoned on demand; exposed REST interfaces for ingestion, search, and the management of their whole life.</li>
+          <li>Benchmarked retrieval latency and scalability against full in-memory vector repositories, demonstrating superior scale under concurrent floods of enquiry.</li>
+        </ul>
+        <div class="tags">Instruments: Python · FAISS · SQLite · REST APIs</div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="rev">
+      <h2 class="sec-title">III. &nbsp;Competencies</h2>
+      <p class="sec-sub">An inventory of the trade</p>
+
+      <table class="ledger">
+        <tr>
+          <th>Languages</th>
+          <td>Python, C, Dart, SQL</td>
+        </tr>
+        <tr>
+          <th>Backend &amp; APIs</th>
+          <td>Flask, REST API Design, Microservices, OAuth2, WebSockets</td>
+        </tr>
+        <tr>
+          <th>A.I. &amp; Vision</th>
+          <td>YOLO, LoRA, FAISS, Vector Search</td>
+        </tr>
+        <tr>
+          <th>Robotics &amp; UAV</th>
+          <td>ROS2, MAVLink, Gazebo, Jetson Nano, Edge Deployment</td>
+        </tr>
+        <tr>
+          <th>Cloud &amp; DevOps</th>
+          <td>Docker, Kubernetes, GitOps, CI/CD, GCP, Supabase</td>
+        </tr>
+        <tr>
+          <th>Instruments</th>
+          <td>Linux, Git, Fusion 360, Wireshark, Burp Suite, Metasploit, Cursor, Claude, Codex</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section class="rev">
+      <h2 class="sec-title">IV. &nbsp;Certifications</h2>
+      <p class="sec-sub">Letters of accreditation</p>
+      <ul class="certs">
+        <li>Oracle Cloud Infrastructure A.I. Foundations Associate <span>— Oracle, 1925</span></li>
+        <li>Machine Learning: Natural Language Processing <span>— Udemy</span></li>
+        <li>Introduction to Networks <span>— Cisco</span></li>
+      </ul>
+    </section>
+
+    <!-- CONNECT -->
+    <section class="rev" style="border-bottom:none;">
+      <h2 class="sec-title">V. &nbsp;Correspondence</h2>
+      <p class="sec-sub">Whereby I may be reached</p>
+
+      <div class="card">
+        <div class="seal">&mdash; The Calling Card of N. S. Jeeva &mdash;</div>
+        <a class="email" href="mailto:nikhil.sudhan.jeeva@gmail.com">nikhil.sudhan.jeeva@gmail.com</a>
+        <div class="phone">Telephone &middot; +91 75300 92811</div>
+        <div class="links">
+          <a href="https://www.linkedin.com/in/nikhilsudhan/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/Nikhil-Sudhan" target="_blank" rel="noopener">Github</a>
+          <a href="https://www.sudhan.me/" target="_blank" rel="noopener">sudhan.me</a>
+          <a href="https://x.com/Nikhil_Sudhan_J" target="_blank" rel="noopener">The Wire (X)</a>
+          <a href="https://app.cal.com/nikhilsudhan-j" target="_blank" rel="noopener">Request an Audience</a>
         </div>
+        <div class="stamp">At Your Service</div>
       </div>
-      <div class="parr">↗</div>
-    </div>
+    </section>
 
-    <div class="proj-item rev" style="transition-delay:.2s">
-      <div class="pn">03</div>
-      <div>
-        <div class="p-name">Adaptive Vector Retrieval Engine</div>
-        <div class="p-desc">Cold-hot FAISS architecture with on-demand embedding loading. REST-native. Built to scale.</div>
-        <div class="p-tags">
-          <span class="ptag">Python</span><span class="ptag">FAISS</span>
-          <span class="ptag">SQLite</span><span class="ptag">REST APIs</span>
-        </div>
-      </div>
-      <div class="parr">↗</div>
-    </div>
-  </section>
+    <footer>
+      <div>Printed &amp; Set in Type &middot; Bangalore &middot; MMXXVI</div>
+      <div class="colophon">*Dates rendered in the Victorian manner; the present year is, in truth, 2026.</div>
+    </footer>
 
-  <!-- CONNECT -->
-  <section id="connect" class="sec">
-    <div class="sec-head rev">
-      <span class="sec-n">03</span>
-      <span class="sec-t">Connect</span>
-    </div>
-    <div class="conn-big rev">let's build<br>something that<br>dominates.</div>
-    <div class="rev" style="transition-delay:.06s">
-      <a class="cal-btn" href="https://app.cal.com/nikhilsudhan-j" target="_blank">book a call ↗</a>
-    </div>
-    <div class="rev" style="transition-delay:.12s">
-      <a class="conn-email" href="mailto:nikhil.sudhan.jeeva@gmail.com">nikhil.sudhan.jeeva@gmail.com</a>
-    </div>
-    <div class="conn-socials rev" style="transition-delay:.22s">
-      <a class="sl" href="https://www.linkedin.com/in/nikhilsudhan/" target="_blank">linkedin</a>
-      <a class="sl" href="https://github.com/Nikhil-Sudhan" target="_blank">github</a>
-      <a class="sl" href="https://www.sudhan.me/" target="_blank">sudhan.me</a>
-      <a class="sl" href="https://www.residencyblr.com/" target="_blank">the residency</a>
-      <span class="sl-phone">+91 75300 92811</span>
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  <span class="ft">© 2026 nikhil sudhan j</span>
-  <span class="ft">build. innovate. dominate.</span>
-</footer>
-
-<!-- TWEAKS -->
-<div id="tp">
-  <div class="tp-hd">
-    <span class="tp-title">Tweaks</span>
-    <button class="tp-x" id="tpx">×</button>
-  </div>
-  <div class="tg">
-    <div class="tg-l">Accent</div>
-    <div class="swatches" id="sw">
-      <div class="sw on"  data-a="#3DFFC0" style="background:#3DFFC0"></div>
-      <div class="sw"     data-a="#9B6EFF" style="background:#9B6EFF"></div>
-      <div class="sw"     data-a="#FF9F47" style="background:#FF9F47"></div>
-      <div class="sw"     data-a="#FF6B8A" style="background:#FF6B8A"></div>
-      <div class="sw"     data-a="#5CBBFF" style="background:#5CBBFF"></div>
-    </div>
-  </div>
-  <div class="tg">
-    <div class="tg-l">Theme</div>
-    <div class="opts" id="themes">
-      <button class="topt"    data-theme="dark">Dark</button>
-      <button class="topt"    data-theme="warm">Warm</button>
-      <button class="topt on" data-theme="term">Terminal</button>
-    </div>
-  </div>
-  <div class="tg">
-    <div class="tg-l">Typeface</div>
-    <div class="opts" id="fonts">
-      <button class="topt"    data-font="Syne">Syne</button>
-      <button class="topt on" data-font="Barlow">Barlow</button>
-      <button class="topt"    data-font="Outfit">Outfit</button>
-    </div>
   </div>
 </div>
 
 <script>
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "accent": "#3DFFC0",
-  "theme": "term",
-  "font": "Barlow"
-}/*EDITMODE-END*/;
-
-// ── TWEAKS PROTOCOL ───────────────────────────
-window.addEventListener('message', e => {
-  if (!e.data) return;
-  if (e.data.type === '__activate_edit_mode')   document.getElementById('tp').style.display = 'block';
-  if (e.data.type === '__deactivate_edit_mode') document.getElementById('tp').style.display = 'none';
-});
-window.parent.postMessage({ type: '__edit_mode_available' }, '*');
-document.getElementById('tpx').addEventListener('click', () => {
-  document.getElementById('tp').style.display = 'none';
-  window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
-});
-
-const THEMES = {
-  dark: { '--bg':'#080808','--bg2':'#0E0E0E','--text':'#ECEAE3','--text2':'rgba(236,234,227,.35)','--border':'#1B1B1B','--surface':'#101010' },
-  warm: { '--bg':'#0D0B09','--bg2':'#141009','--text':'#EDE4D6','--text2':'rgba(237,228,214,.35)','--border':'#251E14','--surface':'#110E09' },
-  term: { '--bg':'#030904','--bg2':'#050F06','--text':'#AEFFA4','--text2':'rgba(174,255,164,.62)','--border':'#0C1E0D','--surface':'#04100A' },
-};
-
-function applyAccent(c) {
-  document.documentElement.style.setProperty('--accent', c);
-  document.querySelectorAll('#sw .sw').forEach(s => s.classList.toggle('on', s.dataset.a === c));
-  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { accent: c } }, '*');
-}
-function applyTheme(k) {
-  const t = THEMES[k]; if (!t) return;
-  Object.entries(t).forEach(([p,v]) => document.documentElement.style.setProperty(p,v));
-  // update nav gradient to match new bg
-  document.querySelectorAll('#themes .topt').forEach(b => b.classList.toggle('on', b.dataset.theme === k));
-  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { theme: k } }, '*');
-}
-function applyFont(f) {
-  const stack = `'${f}', sans-serif`;
-  if (!document.querySelector(`link[data-gf="${f}"]`)) {
-    const l = document.createElement('link');
-    l.rel = 'stylesheet'; l.dataset.gf = f;
-    l.href = `https://fonts.googleapis.com/css2?family=${f.replace(' ','+')}:wght@400;500;600;700;800&display=swap`;
-    document.head.appendChild(l);
-  }
-  document.documentElement.style.setProperty('--fd', stack);
-  document.body.style.fontFamily = stack;
-  document.querySelectorAll('#fonts .topt').forEach(b => b.classList.toggle('on', b.dataset.font === f));
-  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { font: f } }, '*');
-}
-
-document.querySelectorAll('#sw .sw').forEach(s => s.addEventListener('click', () => applyAccent(s.dataset.a)));
-document.querySelectorAll('#themes .topt').forEach(b => b.addEventListener('click', () => applyTheme(b.dataset.theme)));
-document.querySelectorAll('#fonts .topt').forEach(b  => b.addEventListener('click', () => applyFont(b.dataset.font)));
-
-applyAccent(TWEAK_DEFAULTS.accent);
-applyTheme(TWEAK_DEFAULTS.theme);
-applyFont(TWEAK_DEFAULTS.font);
-
-// ── CURSOR ────────────────────────────────────
-const cd = document.getElementById('cd');
-const cr = document.getElementById('cr');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove', e => {
-  mx=e.clientX; my=e.clientY;
-  cd.style.transform=`translate(${mx}px,${my}px)`;
-});
-(function raf(){ rx+=(mx-rx)*.1; ry+=(my-ry)*.1; cr.style.transform=`translate(${rx}px,${ry}px)`; requestAnimationFrame(raf); })();
-document.querySelectorAll('a,button,.sw,.proj-item,.sk').forEach(el => {
-  el.addEventListener('mouseenter',()=>{ cd.classList.add('on'); cr.classList.add('on'); });
-  el.addEventListener('mouseleave',()=>{ cd.classList.remove('on'); cr.classList.remove('on'); });
-});
-if ('ontouchstart' in window) { cd.style.display='none'; cr.style.display='none'; document.body.style.cursor='auto'; }
-
-// ── HERO WORDS ────────────────────────────────
-const words=[document.getElementById('hw1'),document.getElementById('hw2'),document.getElementById('hw3')];
-setTimeout(()=>words[0].classList.add('in'),140);
-setTimeout(()=>words[1].classList.add('in'),320);
-setTimeout(()=>words[2].classList.add('in'),500);
-
-// ── LOGO SCRAMBLE ─────────────────────────────
-const logo=document.getElementById('logo');
-const ltxt=logo.textContent;
-const CH='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#';
-let st;
-logo.addEventListener('mouseenter',()=>{
-  clearInterval(st); let i=0;
-  st=setInterval(()=>{
-    logo.textContent=ltxt.split('').map((c,idx)=>{
-      if(idx<i)return ltxt[idx]; if(c===' ')return ' ';
-      return CH[Math.floor(Math.random()*CH.length)];
-    }).join('');
-    i+=.45; if(i>ltxt.length){clearInterval(st);logo.textContent=ltxt;}
-  },36);
-});
-logo.addEventListener('mouseleave',()=>{ clearInterval(st); logo.textContent=ltxt; });
-
-// ── SCROLL REVEAL ─────────────────────────────
-const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.1});
-document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+  // gentle scroll reveal, in the spirit of the period — unhurried
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.rev').forEach(el => io.observe(el));
 </script>
 </body>
 </html>
